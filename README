@@ -1,0 +1,19 @@
+I am trying to achieve a site with the functionality of this one:
+http://www.beoplay.com/Products/BeoplayA9?utm_source=bang-olufsen.com&utm_medium=referral&utm_campaign=Bang-Olufsen.com%2BProduct%2BPage&utm_term=EXPERIENCE%2BA9&utm_content=BeoPlay%2BA9%2B%3A%2BAll#placements
+
+
+I want to be able to scroll automatically in window height blocks by either the mouse wheel or arrow keys - just like this site.
+
+I also want a menu to go to the desired section.
+
+- Issue's so far:
+Scrolling and arrows work but menu gives bounce effect as both scripts are in effect. I am trying to specify:
+if mouse or arrows do tis script
+else if menu 
+do this script.
+
+just like the reference site.
+
+Any help greatly appreciated with this fix :)
+Thanks!
+Truedaz
