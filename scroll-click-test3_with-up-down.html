@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Div Scrolling</title>
+
+<!-- JQuery Includes =================================================== -->
+<script type="text/javascript" src="js/jquery_core_1.js"></script> <!-- JQuery Core v1.8.2 -->
+<script type="text/javascript" src="js/jquery_ui_1.js"></script> <!-- JQuery UI v1.9.1 -->
+<script type="text/javascript" src="js/jquery_cookie_1.js"></script> <!-- JQuery Cookie v1.3 -->
+<script type="text/javascript" src="js/jquery_input.js"></script> <!-- JQuery Input Format -->
+
+<script type="text/javascript" src="js/jquery_scrollbar.js"></script><script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery_mousewheel.js"></script><!-- =================================================================== -->
+       <script type="text/javascript" src="js/next-prev.js"></script>
+
+
+
+<!-- slow anchor scroll -->
+	<script>
+	$(function() {
+	  $('a[href*=#]:not([href=#])').click(function() {
+	    if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+	        || location.hostname == this.hostname) {
+
+	      var target = $(this.hash);
+	      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+	      if (target.length) {
+	        $('html,body').animate({
+	          scrollTop: target.offset().top
+	        }, 1000);
+	        return false;
+	      }
+	    }
+	  });
+	});
+	</script>
+
+
+
+
+
+<style type="text/css">
+html, body {
+    height:100%;
+    padding:0;
+    margin:0;
+
+}
+
+.container {
+    height:500%;
+    width:100%;
+    padding:0;
+    position:absolute;
+}
+.post {
+    height:20%;
+    width:100%;
+    background-color:#fc3;
+    border-bottom:1px #fff solid;
+}
+	nav {
+	    background: none repeat scroll 0 0 #000000;
+    color: #EEEEEE;
+    display: inline;
+    left: 50%;
+    margin-left: -250px;
+    padding: 0;
+    position: fixed;
+    width: 500px;
+	}
+	nav a { margin:10px; display:block; float:left;}
+div#nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+	    color: #FFFFFF;
+}
+
+
+</style>
+
+</head>
+<body>
+<div class="container">
+<div id="nav">
+    <span id="prev" class="prev" style="cursor: pointer; display: inline;"> &lt;-- </span>
+        .....
+        <span id="next" class="next" style="cursor:pointer;"> --&gt; </span>
+        </div>
+
+<nav>
+<a href="#c1" class="move">page 1</a>
+<a href="#c2" class="move">page 2</a>
+<a href="#c3" class="move">page 3</a>
+<a href="#c4" class="move">page 4</a>
+<a href="#c5" class="move">page 5</a>
+</nav>
+
+<div id="c1" class="post">Content 1</div>
+<div id="c2" class="post">Content 2</div>
+<div id="c3" class="post">Content goes here</div>
+<div id="c4" class="post">Content goes here</div>
+<div id="c5" class="post">Content goes here</div>
+</div>
+
+
+<script type="text/javascript"> 
+<!-- Detect mouse direction -->
+
+			var intOverallDelta = 0;
+				
+			$("html").mousewheel(function(objEvent, intDelta){
+			    if (intDelta > 0){
+				   alert ("up");
+				}
+			    else if (intDelta < 0){
+					alert ("down");
+				}
+			});
+			
+
+
+<!-- next previous links -->
+$(window).load(function(){
+function scrollToPosition(element) {
+    if (element !== undefined) {
+        $("html").scrollTo(element, 800, {
+            margin: true
+        });
+    }
+}
+
+$(function() {
+
+    //Create an Array of posts
+    var posts = $('.post');
+    var position = 0; //Start Position
+    var next = $('#next');
+    var prev = $('#prev').hide();
+
+    //Better performance to use Id selectors than class selectors
+    next.click(function(evt) {
+        //Scroll to next position
+        prev.show();
+        scrollToPosition(posts[position += 1]);
+        if (position === posts.length - 1) {
+            next.hide();
+        }
+    });
+
+    prev.click(function(evt) {
+        //Scroll to prev position    
+        next.show();
+        scrollToPosition(posts[position -= 1]);
+        if (position === 0) {
+            prev.hide();
+        }
+    });
+
+});
+});//]]>  
+
+
+
+
+
+// detect click
+  $(".move").click(function(){
+  // alert ("clicked");
+  });
+  
+  
+  
+  
+  	
+	
+</script>
+
+
+
+
+</body></html>
