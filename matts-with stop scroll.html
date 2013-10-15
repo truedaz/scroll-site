@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Div Scrolling</title>
+
+<!-- JQuery Includes =================================================== -->
+<script type="text/javascript" src="js/jquery_core_1.js"></script> <!-- JQuery Core v1.8.2 -->
+<script type="text/javascript" src="js/jquery_ui_1.js"></script> <!-- JQuery UI v1.9.1 -->
+<script type="text/javascript" src="js/jquery_cookie_1.js"></script> <!-- JQuery Cookie v1.3 -->
+<script type="text/javascript" src="js/jquery_input.js"></script> <!-- JQuery Input Format -->
+
+<script type="text/javascript" src="js/jquery_scrollbar.js"></script><script src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery_mousewheel.js"></script>
+<!-- =================================================================== -->
+
+<style type="text/css">
+html, body {
+    height:100%;
+    padding:0;
+    margin:0;
+
+}
+
+.container {
+    height:500%;
+    width:100%;
+    padding:0;
+    position:absolute;
+}
+.post {
+    height:20%;
+    width:100%;
+    background-color:#fc3;
+    border-bottom:1px #fff solid;
+}
+	nav {
+	    background: none repeat scroll 0 0 #000000;
+    color: #EEEEEE;
+    display: inline;
+    left: 50%;
+    margin-left: -250px;
+    padding: 0;
+    position: fixed;
+    width: 500px;
+	}
+	nav a { margin:10px; display:block; float:left;}
+div#nav {
+    position: fixed;
+    right: 0;
+    top: 0;
+	    color: #FFFFFF;
+}
+
+</style>
+
+</head>
+<body>
+<div class="container">
+
+<nav>
+<a id="navc0" class="move" style="cursor: pointer">page 0</a>
+<a id="navc1" class="move" style="cursor: pointer">page 1</a>
+<a id="navc2" class="move" style="cursor: pointer">page 2</a>
+<a id="navc3" class="move" style="cursor: pointer">page 3</a>
+<a id="navc4" class="move" style="cursor: pointer">page 4</a>
+</nav>
+
+<div id="c0" class="post">Content 0</div>
+<div id="c1" class="post">Content 1</div>
+<div id="c2" class="post">Content 2</div>
+<div id="c3" class="post">Content 3</div>
+<div id="c4" class="post">Content 4</div>
+</div>
+
+
+<script type="text/javascript">
+var posts = $('.post');
+var position = 0;
+var lastNavItem = 4;
+
+// Setup these things on load
+$(window).load(function(){
+
+	// Scroll to a specified element
+	function scrollToPosition(element) {
+		if ("undefined" != typeof $(element).offset()) {
+			$("html, body").animate({ scrollTop: $(element).offset().top }, 1000);
+		}
+	}
+	
+	scrolling = false;
+
+function scrollToPosition(element) {
+    if ("undefined" != typeof $(element).offset() && !scrolling) {
+        scrolling = true;
+        $("html, body").animate({ scrollTop: $(element).offset().top }, 1000);
+        setTimeout(function() {scrolling = false;},1000);
+    }
+}
+	
+
+	// On mouse scroll down/up, scroll to next/prev post if possible
+	// as well as increase/decrese position by 1
+	$("html").mousewheel(function(objEvent, intDelta){
+		// UP
+		if (intDelta > 0 && position > 0 && !scrolling) {
+			scrollToPosition(posts[position -= 1]);
+		// DOWN
+		} else if (intDelta < 0 && position < lastNavItem && !scrolling) {
+			scrollToPosition(posts[position += 1]);
+		}
+		return false;
+	});
+
+	// On click, set set the position and scroll to it
+	$(function() {
+		$('.move').click(function() {
+			if (
+				location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') 
+				|| location.hostname == this.hostname) {
+
+				position = parseInt(this.id.substr(4),10); // turns c1 into 1 and into an integer
+				scrollToPosition(posts[position]);
+			}
+
+		 });
+	});
+});
+</script>
+
+</body>
+</html>
